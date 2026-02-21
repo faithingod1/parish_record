@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Confirmation Record Detail</h1>
+<div class="card detail-grid">
+    <p><strong>Full Name:</strong> {{ record.full_name }}</p>
+    <p><strong>Date of Birth:</strong> {{ record.date_of_birth }}</p>
+    <p><strong>Confirmation Date:</strong> {{ record.confirmation_date }}</p>
+    <p><strong>Church Name:</strong> {{ record.church_name }}</p>
+    <p><strong>Priest Name:</strong> {{ record.priest_name }}</p>
+    <p><strong>Sponsor Name:</strong> {{ record.sponsor_name }}</p>
+    <p><strong>Remarks:</strong> {{ record.remarks }}</p>
+    <p><strong>Created At:</strong> {{ record.created_at }}</p>
+</div>
+<div class="header-row">
+    <a class="btn" href="/confirmations/{{ record.id }}/edit">Edit</a>
+    <a class="btn btn-secondary" href="/confirmations">Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="header-row">
+    <h1>Confirmation Records</h1>
+    <a class="btn" href="/confirmations/new">Add New</a>
+</div>
+
+<form method="get" action="/confirmations" class="search-form">
+    <input type="text" name="q" placeholder="Search by name, date, church, priest" value="{{ q }}" />
+    <button type="submit" class="btn">Search</button>
+</form>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Confirmation Date</th>
+                <th>Church</th>
+                <th>Priest</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.id }}</td>
+                <td>{{ record.full_name }}</td>
+                <td>{{ record.confirmation_date }}</td>
+                <td>{{ record.church_name }}</td>
+                <td>{{ record.priest_name }}</td>
+                <td>
+                    <a href="/confirmations/{{ record.id }}">View</a> |
+                    <a href="/confirmations/{{ record.id }}/edit">Edit</a> |
+                    <form method="post" action="/confirmations/{{ record.id }}/delete" class="inline-form" onsubmit="return confirm('Are you sure you want to delete this record?');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+                        <button type="submit" class="link-button danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="6">No records found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
