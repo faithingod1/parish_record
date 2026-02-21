@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{% if mode == 'edit' %}Edit{% else %}Add{% endif %} Confirmation Record</h1>
+<div class="card">
+    <form method="post" action="{% if mode == 'edit' %}/confirmations/{{ record.id }}/edit{% else %}/confirmations/new{% endif %}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+
+        <label>Full Name</label>
+        <input type="text" name="full_name" required value="{{ record.full_name if record else '' }}" />
+
+        <label>Date of Birth</label>
+        <input type="date" name="date_of_birth" required value="{{ record.date_of_birth if record else '' }}" />
+
+        <label>Confirmation Date</label>
+        <input type="date" name="confirmation_date" required value="{{ record.confirmation_date if record else '' }}" />
+
+        <label>Church Name</label>
+        <input type="text" name="church_name" required value="{{ record.church_name if record else '' }}" />
+
+        <label>Priest Name</label>
+        <input type="text" name="priest_name" required value="{{ record.priest_name if record else '' }}" />
+
+        <label>Sponsor Name</label>
+        <input type="text" name="sponsor_name" value="{{ record.sponsor_name if record else '' }}" />
+
+        <label>Remarks</label>
+        <textarea name="remarks">{{ record.remarks if record else '' }}</textarea>
+
+        <button class="btn" type="submit">Save</button>
+    </form>
+</div>
+{% endblock %}

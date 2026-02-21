@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title if title else "Church Confirmation Records" }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+    <div class="layout">
+        {% if request.session.get('user_id') %}
+        <aside class="sidebar">
+            <h2>Parish Records</h2>
+            <nav>
+                <a href="/dashboard">Dashboard</a>
+                <a href="/confirmations">Confirmation Records</a>
+                <a href="/confirmations/new">Add Record</a>
+                <a href="/backup/db">Backup DB</a>
+                <a href="/backup/csv">Export CSV</a>
+            </nav>
+            <form action="/logout" method="post" class="logout-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}" />
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </aside>
+        {% endif %}
+
+        <main class="content {% if not request.session.get('user_id') %}content-centered{% endif %}">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>
